@@ -1,67 +1,126 @@
-# JutaHindustani E-commerce Shoe Application (Windows Setup Guide)
+# 👟 JutaHindustani — E-Commerce Shoe Platform
 
-A modern, full-stack, and scalable e-commerce MVP for selling shoes online, configured for Windows development environment.
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.3.0-green?style=for-the-badge&logo=springboot)](https://spring.io/projects/spring-boot)
+[![React](https://img.shields.io/badge/React-19.2-blue?style=for-the-badge&logo=react)](https://react.dev)
+[![Vite](https://img.shields.io/badge/Vite-8.0-purple?style=for-the-badge&logo=vite)](https://vite.dev)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-4.0-38bdf8?style=for-the-badge&logo=tailwindcss)](https://tailwindcss.com)
+[![MySQL](https://img.shields.io/badge/MySQL-8.0-blue?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com)
+
+A modern, full-stack, and responsive e-commerce web application specialized in selling footwear. Engineered with a Spring Boot backend API and a fast React single-page application (SPA) powered by Vite.
 
 ---
 
-## ⚡ Quick Start (Windows)
+## 🏗️ Architecture & Technology Stack
+
+The application employs a decoupled client-server architecture with state-of-the-art framework capabilities.
+
+```mermaid
+graph TD
+    classDef frontend fill:#cbe8ff,stroke:#38bdf8,stroke-width:2px,color:#1e293b;
+    classDef backend fill:#dcfce7,stroke:#22c55e,stroke-width:2px,color:#14532d;
+    classDef database fill:#fef9c3,stroke:#eab308,stroke-width:2px,color:#713f12;
+
+    subgraph Frontend [Vite + React Client]
+        Client[Interactive SPA UI]:::frontend
+        Context[Auth & Cart State]:::frontend
+    end
+
+    subgraph Backend [Spring Boot API Server]
+        Auth[JWT Filter / Spring Security]:::backend
+        Ctrl[REST Controllers]:::backend
+        Svc[Service Layer / Business Logic]:::backend
+        Repo[Spring Data JPA]:::backend
+    end
+
+    subgraph Database [Storage Layer]
+        DB[(MySQL Database)]:::database
+    end
+
+    Client <-->|HTTP REST & JWT| Auth
+    Auth <--> Ctrl
+    Ctrl <--> Svc
+    Svc <--> Repo
+    Repo <-->|Hibernate O/R Mapping| DB
+```
+
+### 💻 Frontend
+* **React 19** & **Vite 8**: High-performance rendering engine and bundler with hot module replacement (HMR).
+* **Tailwind CSS v4**: Utility-first styling engine driving cohesive responsive design patterns.
+* **React Hook Form**: Performant, extensible form validation.
+* **Lucide React**: Clean and minimal modern vector icons.
+* **Axios**: Promised-based HTTP client interfacing with backend REST API.
+
+### ⚙️ Backend
+* **Spring Boot 3.3**: Enterprise-grade Java application framework.
+* **Spring Security & JJWT (0.12.5)**: Stateless session management securing REST endpoints with JSON Web Tokens.
+* **Spring Data JPA & Hibernate**: Object-relational mapping facilitating persistent MySQL storage.
+* **Lombok**: Boilerplate reduction library for cleaner model classes.
+* **MySQL Connector/J**: Official database connectivity driver.
+
+---
+
+## ⚡ Windows Quick Start Guide
+
+Follow these steps to configure, seed, and launch the application in your local environment.
 
 ### Step 1: Database Setup (MySQL)
-1. Ensure your local **MySQL Server** is running.
-2. The application is set to automatically create the database `jutahindustani` if it does not exist.
-3. Open `backend/src/main/resources/application.properties` and replace the credentials with your local MySQL username and password:
+
+1. Make sure your local **MySQL Server** is running.
+2. The application is configured to automatically create the database `jutahindustani` if it does not already exist.
+3. Open `backend/src/main/resources/application.properties` and customize the connection string and credentials:
    ```properties
-   spring.datasource.username=your_mysql_username
-   spring.datasource.password=your_mysql_password
+   spring.datasource.url=jdbc:mysql://localhost:3306/jutahindustani?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+   spring.datasource.username=YOUR_MYSQL_USERNAME
+   spring.datasource.password=YOUR_MYSQL_PASSWORD
    ```
 
 ---
 
-### Step 2: Launch the Backend Server
+### Step 2: Launch the Backend API Server
 
-The backend includes a Maven wrapper, so you do not need Maven installed globally.
+The backend includes a Maven wrapper, eliminating the need to install Maven globally on your system.
 
 1. Open a new **PowerShell** window.
 2. Navigate to the `backend` folder:
    ```powershell
    cd backend
    ```
-3. Start the server using the Maven wrapper:
+3. Boot up the Spring Boot server using the Maven wrapper:
    ```powershell
    .\mvnw spring-boot:run
    ```
-   *(If you are using CMD instead of PowerShell, you can run `mvnw spring-boot:run` directly.)*
-4. The server will start and be active on **`http://localhost:8080`**.
+   *(If you are running from standard Command Prompt (CMD), run `mvnw spring-boot:run` instead.)*
+4. The server will boot up and bind to **`http://localhost:8080`**.
 
 ---
 
-### Step 3: Launch the Frontend Application
+### Step 3: Launch the Frontend Web Client
 
-1. Open a **second** terminal window.
+1. Open a **second** terminal window or tab.
 2. Navigate to the `frontend` folder:
    ```powershell
    cd frontend
    ```
-3. Install dependencies and start the Vite development server. If script execution is disabled on your system (common PowerShell security error), use `npm.cmd`:
+3. Install the dependencies and initiate the Vite development server. If script execution policies restrict NPM scripts on your PowerShell session, execute commands directly via `npm.cmd`:
    ```powershell
-   # Use npm.cmd to bypass script execution policies on Windows:
+   # Bypass Windows execution policies with npm.cmd
    npm.cmd install
    npm.cmd run dev
    ```
-4. Open your browser and navigate to **`http://localhost:XXXX`**.
+4. Once running, open your web browser and access the application at the port indicated in the terminal (typically **`http://localhost:5173`**).
 
 ---
 
-## 🔑 Default Accounts
+## 🔑 Default Test Accounts
 
-The application automatically seeds these login accounts on first startup:
+To facilitate instant evaluation, the database auto-seeds the following roles during first-time execution:
 
-### 👤 Customer Account
+### 👤 Customer Role
 * **Email:** `test1@gmail.com`
 * **Password:** `customer123`
-* **Features:** Browse shoes, filter categories, search, add products to cart, and checkout.
+* **Features:** Search and filter catalog, inspect product details, manage cart, place orders, view order history.
 
-### 🔑 Administrator Account
+### 🔑 Administrator Role
 * **Email:** `test@gmail.com`
 * **Password:** `admin123`
-* **Features:** Access to the **Admin Dashboard** to add, edit, or delete shoe inventory and track customer orders.
+* **Features:** Full CRUD access over products (shoes) inventory, categorize products, browse all client orders, and update shipping/fulfillment states.

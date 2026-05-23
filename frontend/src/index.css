@@ -78,6 +78,12 @@ body {
 .nike-input:focus {
   border-color: #000000;
 }
+.nike-input.pl-10 {
+  padding-left: 2.5rem;
+}
+.nike-input.pr-10 {
+  padding-right: 2.5rem;
+}
 
 /* Cards grids inspired by product walls */
 .product-card {
