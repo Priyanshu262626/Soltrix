@@ -124,3 +124,23 @@ To facilitate instant evaluation, the database auto-seeds the following roles du
 * **Email:** `test@gmail.com`
 * **Password:** `admin123`
 * **Features:** Full CRUD access over products (shoes) inventory, categorize products, browse all client orders, and update shipping/fulfillment states.
+
+---
+
+## ❤️ Wishlist & Favorites Feature
+
+We have added a fully persistent, secure, and reactive **Wishlist & Favorites** module across the entire stack.
+
+### ⚙️ Backend REST APIs (Exposed under `/api/v1/wishlist` & `/api/wishlist`)
+All endpoints are secured behind custom JWT filter gates and map to the active logged-in User Principal:
+* **`GET /`** — Retrieves list of all wishlisted product entries with complete shoe specifications.
+* **`POST /add/{productId}`** — Safely persists a shoe to the user's wishlist (robustly prevents duplicates).
+* **`DELETE /remove/{productId}`** — Removes a shoe from the wishlist.
+* **`GET /check/{productId}`** — Utility check returning `true` or `false` indicating active favorited status.
+
+### 🎨 Frontend UI Integrations
+* **Dynamic Overlay Hearts**: Clickable heart fav icons positioned on top of catalog item cards ([ProductCard.jsx](file:///c:/Users/priyanshu/Downloads/JutaHindustani/frontend/src/components/common/ProductCard.jsx)) with real-time reactive global state updates.
+* **Product Details Action**: A premium outline/filled favoriting button nestled next to the "Add to Bag" element ([ProductDetails.jsx](file:///c:/Users/priyanshu/Downloads/JutaHindustani/frontend/src/pages/products/ProductDetails.jsx)).
+* **Navigation Header Badge**: A live navbar favoriting badge showing exact active counts ([Navbar.jsx](file:///c:/Users/priyanshu/Downloads/JutaHindustani/frontend/src/components/layout/Navbar.jsx)).
+* **Wishlist Screen**: A responsive favorites grid page ([Wishlist.jsx](file:///c:/Users/priyanshu/Downloads/JutaHindustani/frontend/src/pages/wishlist/Wishlist.jsx)) with clean empty-states.
+
