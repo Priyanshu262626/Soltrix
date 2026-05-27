@@ -14,6 +14,8 @@ import Checkout from './pages/checkout/Checkout';
 import OrderSuccess from './pages/checkout/OrderSuccess';
 import Orders from './pages/checkout/Orders';
 import Wishlist from './pages/wishlist/Wishlist';
+import Profile from './pages/profile/Profile';
+import About from './pages/about/About';
 
 // Admin Imports
 import AdminDashboard from './pages/admin/AdminDashboard';
@@ -37,6 +39,7 @@ function MainAppLayout() {
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/about" element={<About />} />
 
           {/* Authenticated Customer Routes */}
           <Route 
@@ -79,6 +82,15 @@ function MainAppLayout() {
               </ProtectedRoute>
             } 
           />
+          <Route 
+            path="/profile" 
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            } 
+          />
+
 
           {/* Administrative Routes */}
           <Route 

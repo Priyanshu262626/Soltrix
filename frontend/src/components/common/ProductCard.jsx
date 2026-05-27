@@ -30,23 +30,25 @@ export default function ProductCard({ product }) {
   return (
     <Link
       to={`/product/${product.id}`}
-      className="group product-card rounded-lg overflow-hidden flex flex-col h-full text-left cursor-pointer"
+      className="group product-card rounded overflow-hidden flex flex-col h-full text-left cursor-pointer border border-neutral-100 bg-[#f9f9fb] hover:bg-white hover:shadow-xs transition-all duration-300"
     >
       {/* Image Container */}
-      <div className="aspect-square relative p-3 bg-white flex items-center justify-center border-b border-white overflow-hidden">
+      <div className="aspect-[4/3] relative p-8 bg-white/60 flex items-center justify-center border-b border-neutral-100 overflow-hidden">
         {/* Wishlist Button Overlay */}
         {(!user || user.role === 'ROLE_CUSTOMER') && (
           <button
             onClick={handleFavClick}
-            className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-white/80 backdrop-blur-xs border border-neutral-200 flex items-center justify-center text-black hover:bg-white hover:scale-105 transition-all shadow-xxs cursor-pointer"
+            className={`absolute top-4 right-4 z-10 w-10 h-10 rounded-full border flex items-center justify-center bg-white shadow-xxs transition-all duration-300 cursor-pointer ${isFavorite ? 'border-red-500 text-red-500 hover:bg-red-50' : 'border-neutral-200 text-black hover:border-black'
+              }`}
             aria-label="Toggle Wishlist"
           >
-            <Heart 
-              size={16} 
-              className={isFavorite ? "fill-red-500 text-red-500" : "text-black"} 
+            <Heart
+              size={18}
+              className={isFavorite ? "fill-red-500" : ""}
             />
           </button>
         )}
+
         <img
           src={product.imageUrl}
           alt={product.name}
@@ -55,35 +57,38 @@ export default function ProductCard({ product }) {
             e.target.style.display = 'none';
             e.target.nextSibling.style.display = 'flex';
           }}
-          className={`w-full h-full object-contain transform transition-transform duration-300 ${
-            product.imageUrl?.includes('2nd-shoe.png') ? 'scale-[1.18] group-hover:scale-[1.24]' : 'scale-[1.06] group-hover:scale-[1.12]'
-          }`}
+          className="max-h-[90%] w-auto object-contain transform transition-transform duration-[0.6s] ease-out group-hover:scale-105 group-hover:-rotate-3"
         />
-        {/* Fallback Display */}
+
+        {/* Fallback Display if image doesn't exist */}
         <div className="hidden absolute inset-0 flex-col items-center justify-center text-center p-4 bg-white">
-          <div className="w-16 h-16 rounded-full bg-black text-white flex items-center justify-center mb-3">
-            <span className="text-2xl font-black">{product.brand[0]}</span>
+          <div className="w-12 h-12 rounded-full bg-black text-white flex items-center justify-center mb-2">
+            <span className="text-xl font-black">{product.brand[0]}</span>
           </div>
-          <span className="text-xxs text-gray-500 font-extrabold uppercase tracking-widest">{product.brand}</span>
+          <span className="text-[11px] text-neutral-400 font-bold uppercase tracking-widest">{product.brand}</span>
           <span className="text-sm font-bold text-black mt-1 uppercase">{product.name}</span>
         </div>
 
-        {/* Tag Category */}
-        <div className="absolute top-3 left-3 bg-white border border-neutral-200 text-black px-2.5 py-0.5 rounded-full text-xxs font-bold uppercase flex items-center">
-          <Tag size={10} className="mr-1" />
+        {/* Category Tag overlay */}
+        <div className="absolute top-4 left-4 bg-neutral-900 text-white px-3.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider flex items-center shadow-xxs">
           {product.category}
         </div>
       </div>
 
-      {/* Info details */}
-      <div className="p-4 flex flex-col flex-grow bg-white text-left">
-        <span className="text-[10px] text-gray-400 font-extrabold uppercase tracking-widest">{product.brand}</span>
-        <h3 className="text-sm font-bold text-black mt-1 line-clamp-1 group-hover:text-indigo-600 transition-colors duration-300">
+      {/* Details Container */}
+      <div className="p-6 flex flex-col flex-grow bg-white text-left space-y-1.5">
+        <span className="text-[11px] text-neutral-400 font-extrabold uppercase tracking-[0.18em] block">{product.brand}</span>
+        <h3 className="text-sm font-black text-neutral-850 uppercase tracking-tight line-clamp-1 group-hover:text-black transition-colors duration-200">
           {product.name}
         </h3>
-        <span className="text-sm font-extrabold text-black mt-2 font-mono">
-          ₹{product.price.toLocaleString('en-IN')}
-        </span>
+        <div className="flex justify-between items-center border-t border-neutral-50 mt-4 pt-2.5">
+          <span className="text-sm font-black font-mono text-black">
+            ₹{product.price.toLocaleString('en-IN')}
+          </span>
+          <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-0.5">
+            View details →
+          </span>
+        </div>
       </div>
     </Link>
   );

@@ -37,6 +37,11 @@ lerna-debug.log*
 **/.env.test.local
 **/.env.production.local
 
+# Vite and ESLint temp files
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+.eslintcache
+
 # -------------------------------------------------------------------------
 # Java / Spring Boot (Maven)
 # -------------------------------------------------------------------------

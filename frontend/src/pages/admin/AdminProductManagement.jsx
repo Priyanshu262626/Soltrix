@@ -35,7 +35,7 @@ export default function AdminProductManagement() {
 
   return (
     <div className="bg-white min-h-screen">
-      <div className="max-w-7xl mx-auto px-6 py-12 text-left">
+      <div className="max-w-[90rem] mx-auto px-6 py-12 text-left">
         
         {/* Back Link */}
         <Link to="/admin" className="inline-flex items-center text-gray-400 hover:text-black mb-8 transition-colors text-xs font-bold uppercase tracking-wider">

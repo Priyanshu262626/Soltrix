@@ -7,13 +7,13 @@ export default function AddToCartButton({ onClick, loading = false, disabled = f
       type="button"
       onClick={onClick}
       disabled={disabled || loading}
-      className="nike-btn-black w-full max-w-sm flex items-center justify-center space-x-2 text-sm disabled:opacity-75 cursor-pointer shadow-md"
+      className="nike-btn-black w-full md:max-w-sm flex items-center justify-center space-x-2 text-xs py-3.5"
     >
       {loading ? (
         <span className="border-2 border-white border-t-transparent w-4 h-4 rounded-full animate-spin"></span>
       ) : (
         <>
-          <ShoppingBag size={18} />
+          <ShoppingBag size={14} />
           <span>{text}</span>
         </>
       )}

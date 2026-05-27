@@ -16,14 +16,14 @@ export default function SearchBar({ placeholder = 'Search...', onSubmit, initial
         placeholder={placeholder}
         value={val}
         onChange={(e) => setVal(e.target.value)}
-        className="w-full nike-input pr-10 text-xs"
+        className="w-full bg-white border border-neutral-200 text-black text-[11px] font-bold uppercase tracking-wider rounded px-3 py-2 focus:outline-none focus:border-black pr-10"
       />
       <button 
         type="submit" 
-        className="absolute right-3 top-2.5 text-gray-400 hover:text-black bg-transparent border-0 cursor-pointer p-0.5"
+        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-black bg-transparent border-0 cursor-pointer p-0.5"
         aria-label="Search"
       >
-        <Search size={14} />
+        <Search size={13} />
       </button>
     </form>
   );

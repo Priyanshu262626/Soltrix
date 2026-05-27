@@ -97,6 +97,16 @@ export const AuthProvider = ({ children }) => {
     setWishlist([]);
   };
 
+  const updateUser = (updatedUser) => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      const parsedUser = JSON.parse(storedUser);
+      const newUser = { ...parsedUser, ...updatedUser };
+      localStorage.setItem('user', JSON.stringify(newUser));
+      setUser(newUser);
+    }
+  };
+
   // Cart operations exposed globally
   const addToCart = async (productId, quantity, size) => {
     if (!user) throw new Error('Please login to add items to cart');
@@ -184,6 +194,7 @@ export const AuthProvider = ({ children }) => {
     login,
     signup,
     logout,
+    updateUser,
     loadCart,
     addToCart,
     updateCartQuantity,

@@ -59,7 +59,7 @@ export default function AdminDashboard() {
 
   return (
     <div className="bg-white min-h-screen">
-      <div className="max-w-7xl mx-auto px-6 py-12 text-left">
+      <div className="max-w-[90rem] mx-auto px-6 py-12 text-left">
         
         {/* Header */}
         <div className="border-b border-gray-100 pb-5 mb-8">

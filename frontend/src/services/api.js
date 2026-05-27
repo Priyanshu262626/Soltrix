@@ -118,5 +118,14 @@ export const api = {
     updateOrderStatus: (orderId, status) =>
       apiClient.put(`/admin/orders/${orderId}/status`, null, { params: { status } }),
   },
+
+  // User Profile
+  user: {
+    getProfile: () =>
+      apiClient.get('/user/profile'),
+
+    updateProfile: (profileData) =>
+      apiClient.put('/user/profile', profileData),
+  },
 };
 

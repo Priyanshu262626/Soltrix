@@ -32,6 +32,12 @@ public class User {
     @Column(nullable = false)
     private Role role;
 
+    @Column(name = "phone")
+    private String phone;
+
+    @Column(name = "address", columnDefinition = "TEXT")
+    private String address;
+
     @Column(name = "created_at", nullable = false, updatable = false)
     @Builder.Default
     private java.time.LocalDateTime createdAt = java.time.LocalDateTime.now();

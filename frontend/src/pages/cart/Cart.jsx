@@ -40,33 +40,40 @@ export default function Cart() {
   const total = subtotal + deliveryCharge;
 
   return (
-    <div className="bg-white min-h-screen">
-      <div className="max-w-8xl mx-auto px-6 py-12">
-        <h1 className="text-3xl font-black text-black text-left uppercase tracking-tighter mb-8 border-b border-neutral-100 pb-4">
-          Shopping Bag
-        </h1>
+    <div className="bg-[#fcfcfd] min-h-screen">
+      <div className="max-w-[90rem] mx-auto px-6 py-12">
+        
+        {/* Header */}
+        <div className="border-b border-neutral-100 pb-6 mb-10 text-left">
+          <span className="text-[10px] font-bold tracking-[0.3em] text-neutral-400 uppercase block">
+            MY BAG
+          </span>
+          <h1 className="text-3xl md:text-4xl font-serif-editorial text-black tracking-tight mt-2 uppercase">
+            Shopping Bag
+          </h1>
+        </div>
 
         {cartItems.length === 0 ? (
-          <div className="text-center py-20 border border-neutral-200 rounded-lg max-w-2xl mx-auto bg-neutral-50">
-            <div className="w-16 h-16 border-2 border-dashed border-gray-300 rounded-full flex items-center justify-center mx-auto mb-4 text-gray-400">
-              <ShoppingBag size={24} />
+          <div className="text-center py-20 border border-neutral-200/60 rounded-sm max-w-xl mx-auto bg-white p-8">
+            <div className="w-12 h-12 border border-neutral-200 rounded-full flex items-center justify-center mx-auto mb-4 text-neutral-400">
+              <ShoppingBag size={18} />
             </div>
-            <h2 className="text-lg font-bold text-black uppercase tracking-tight">Your bag is empty</h2>
-            <p className="text-gray-500 mt-2 text-xs max-w-xs mx-auto leading-relaxed">
-              Once you add products to your shopping bag, they will appear here. Start browsing our new season arrivals.
+            <h2 className="text-base font-bold text-black uppercase tracking-tight">Your bag is empty</h2>
+            <p className="text-neutral-500 mt-2 text-xs max-w-xs mx-auto leading-relaxed uppercase font-semibold tracking-wide">
+              Browse our catalog of premium, hand-crafted footwear and secure your pair.
             </p>
             <Link
               to="/shop"
               className="nike-btn-black mt-6 inline-flex items-center space-x-2 text-xs"
             >
-              <ArrowLeft size={14} /> <span>Shop catalog</span>
+              <ArrowLeft size={12} /> <span>Browse catalog</span>
             </Link>
           </div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 text-left">
             
             {/* Bag Items list */}
-            <div className="lg:col-span-2 divide-y divide-neutral-100">
+            <div className="lg:col-span-2 divide-y divide-neutral-100 bg-white border border-neutral-200/60 rounded-sm p-6">
               {cartItems.map((item) => (
                 <CartItemCard
                   key={item.id}

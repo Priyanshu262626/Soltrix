@@ -8,7 +8,7 @@ import LoadingSpinner from '../../components/common/LoadingSpinner';
 import { SlidersHorizontal, X } from 'lucide-react';
 
 const CATEGORIES = ['ALL', 'SNEAKERS', 'RUNNING', 'CASUAL', 'FORMAL'];
-const ITEMS_PER_PAGE = 6; // Simple pagination mock constant
+const ITEMS_PER_PAGE = 8; // Adjust pagination size for a cleaner grid view
 
 export default function Shop() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -85,30 +85,40 @@ export default function Shop() {
   const paginatedProducts = sortedProducts.slice(indexOfFirstItem, indexOfLastItem);
 
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-[#fcfcfd] min-h-screen text-left">
       {/* Page Header */}
-      <div className="border-b border-gray-100 py-6 px-6">
-        <div className="max-w-8xl mx-auto flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-          <h1 className="text-3xl font-black text-black uppercase tracking-tighter text-left">
-            {category} Footwear ({products.length})
-          </h1>
+      <div className="border-b border-neutral-100 py-16 px-10 bg-[#f7f7f9]">
+        <div className="max-w-[90rem] mx-auto flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
+          <div>
+            <span className="text-xs font-bold tracking-[0.3em] text-neutral-400 uppercase block">
+              COLLECTION
+            </span>
+            <h1 className="text-4xl md:text-5xl font-serif-editorial text-black tracking-tight mt-2 uppercase leading-none">
+              {category} Models
+            </h1>
+          </div>
           
-          <button
-            onClick={() => setShowMobileFilters(true)}
-            className="lg:hidden flex items-center space-x-1.5 border border-neutral-300 rounded px-3 py-2 text-xs font-bold uppercase tracking-wider text-black cursor-pointer bg-white"
-          >
-            <SlidersHorizontal size={14} />
-            <span>Filters</span>
-          </button>
+          <div className="flex items-center gap-6 w-full sm:w-auto justify-between sm:justify-end">
+            <span className="text-sm font-bold text-neutral-400 uppercase tracking-widest">
+              {products.length} Designs
+            </span>
+            <button
+              onClick={() => setShowMobileFilters(true)}
+              className="lg:hidden flex items-center space-x-1.5 border border-neutral-200 rounded px-4 py-2 text-xs font-bold uppercase tracking-wider text-black cursor-pointer bg-white"
+            >
+              <SlidersHorizontal size={12} />
+              <span>Filters</span>
+            </button>
+          </div>
         </div>
       </div>
 
       {/* Main Grid Content */}
-      <div className="max-w-8xl mx-auto px-6 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+      <div className="max-w-[90rem] mx-auto px-6 py-16">
+        <div className="flex flex-col lg:flex-row gap-12">
           
           {/* Desktop Filter Sidebar (Left Column) */}
-          <aside className="hidden lg:block">
+          <aside className="hidden lg:block border-r border-neutral-100 pr-8 w-[240px] shrink-0">
             <FilterSidebar
               categories={CATEGORIES}
               activeCategory={category}
@@ -121,11 +131,14 @@ export default function Shop() {
           </aside>
 
           {/* Catalog Listing (Right Column) */}
-          <div className="lg:col-span-3 text-left">
+          <div className="flex-1">
             {loading ? (
-              <LoadingSpinner fullPage message="Loading Shoe Catalog..." />
+              <div className="flex flex-col items-center justify-center py-32">
+                <div className="border-3 border-black border-t-transparent w-8 h-8 rounded-full animate-spin"></div>
+                <span className="mt-4 text-xs font-bold uppercase tracking-wider text-neutral-400">Loading catalog...</span>
+              </div>
             ) : error ? (
-              <div className="text-center py-16 border border-neutral-200 rounded-lg">
+              <div className="text-center py-16 border border-neutral-200 rounded-lg bg-neutral-50 max-w-lg mx-auto">
                 <p className="text-sm font-semibold text-red-500">{error}</p>
                 <button onClick={fetchProducts} className="nike-btn-black mt-4 text-xs cursor-pointer">
                   Reload Catalog
@@ -150,15 +163,15 @@ export default function Shop() {
 
       {/* Mobile Sidebar overlay */}
       {showMobileFilters && (
-        <div className="fixed inset-0 z-50 flex justify-end bg-black/50 backdrop-blur-xs animate-fadeIn">
+        <div className="fixed inset-0 z-50 flex justify-end bg-black/40 backdrop-blur-xs animate-fadeIn">
           <div className="bg-white w-80 h-full p-6 text-left shadow-2xl overflow-y-auto flex flex-col space-y-6 animate-slideIn">
-            <div className="flex justify-between items-center border-b border-gray-100 pb-3">
-              <h3 className="text-sm font-extrabold uppercase tracking-wider text-black">Filters</h3>
+            <div className="flex justify-between items-center border-b border-neutral-100 pb-4">
+              <h3 className="text-xs font-black uppercase tracking-wider text-black">Filter catalog</h3>
               <button 
                 onClick={() => setShowMobileFilters(false)}
                 className="text-gray-400 hover:text-black bg-transparent border-0 cursor-pointer p-1"
               >
-                <X size={20} />
+                <X size={18} />
               </button>
             </div>
 
