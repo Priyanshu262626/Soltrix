@@ -49,8 +49,8 @@ public class DatabaseSeeder implements CommandLineRunner {
 
     private void checkAndCleanJpgProducts() {
         long count = productRepository.count();
-        if (count != 12) {
-            System.out.println("Database Seeding: Product count is " + count + " (expected 12). Cleaning up database to re-seed 12 products (6 PNG + 6 JPG)...");
+        if (count != 13) {
+            System.out.println("Database Seeding: Product count is " + count + " (expected 13). Cleaning up database to re-seed 13 products (7 PNG + 6 JPG)...");
             wishlistRepository.deleteAll();
             cartItemRepository.deleteAll();
             orderRepository.deleteAll();
@@ -340,7 +340,25 @@ public class DatabaseSeeder implements CommandLineRunner {
             }
             productRepository.save(p12);
 
-            System.out.println("Database Seeding: All 12 shoe products seeded successfully!");
+            // 13. Nike - Nike Air Max Tailwind (New addition)
+            Product p13 = Product.builder()
+                    .title("Nike Air Max Tailwind")
+                    .brand("Nike")
+                    .description("High-performance retro trainer featuring light grey mesh, stark black overlays, and neon yellow accents.")
+                    .gender("Unisex")
+                    .color("Grey/Black/Neon")
+                    .price(11999.0)
+                    .discountPrice(10999.0)
+                    .stock(25)
+                    .category(sneakers)
+                    .build();
+            p13.getProductImages().add(ProductImage.builder().imageUrl("/images/shoes/nike-air-max-tailwind.png").product(p13).build());
+            for (String sizeStr : new String[]{"7", "8", "9", "10", "11"}) {
+                p13.getProductSizes().add(ProductSize.builder().size(sizeStr).quantity(10).product(p13).build());
+            }
+            productRepository.save(p13);
+
+            System.out.println("Database Seeding: All 13 shoe products seeded successfully!");
         }
     }
 }

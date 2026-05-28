@@ -13,11 +13,12 @@ const ITEMS_PER_PAGE = 8; // Adjust pagination size for a cleaner grid view
 export default function Shop() {
   const [searchParams, setSearchParams] = useSearchParams();
   const initialCategory = searchParams.get('category') || 'ALL';
+  const initialSearch = searchParams.get('search') || '';
 
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState(initialSearch);
   const [category, setCategory] = useState(initialCategory);
   const [sortBy, setSortBy] = useState('none');
   const [showMobileFilters, setShowMobileFilters] = useState(false);
@@ -27,20 +28,22 @@ export default function Shop() {
 
   useEffect(() => {
     const urlCategory = searchParams.get('category') || 'ALL';
+    const urlSearch = searchParams.get('search') || '';
     setCategory(urlCategory);
-    setCurrentPage(1); // Reset page on category change
+    setSearch(urlSearch);
+    setCurrentPage(1); // Reset page on query change
   }, [searchParams]);
 
   useEffect(() => {
     fetchProducts();
-  }, [category]);
+  }, [category, search]);
 
   const fetchProducts = async () => {
     setLoading(true);
     setError('');
     try {
       const catParam = category === 'ALL' ? '' : category;
-      const data = await api.products.getAll('', catParam);
+      const data = await api.products.getAll(search, catParam);
       setProducts(data);
     } catch (err) {
       setError('Failed to load shoe catalog. Please make sure the backend is running.');
@@ -50,25 +53,18 @@ export default function Shop() {
     }
   };
 
-  const handleSearch = async (query) => {
-    setSearch(query);
-    setLoading(true);
-    setCurrentPage(1);
-    try {
-      const data = await api.products.getAll(query, category === 'ALL' ? '' : category);
-      setProducts(data);
-    } catch (err) {
-      setError('Search failed.');
-    } finally {
-      setLoading(false);
-    }
+  const handleSearch = (query) => {
+    const newParams = {};
+    if (category !== 'ALL') newParams.category = category;
+    if (query) newParams.search = query;
+    setSearchParams(newParams);
   };
 
   const handleCategoryClick = (cat) => {
-    setSearchParams(cat === 'ALL' ? {} : { category: cat });
-    setCategory(cat);
-    setSearch('');
-    setCurrentPage(1);
+    const newParams = {};
+    if (cat !== 'ALL') newParams.category = cat;
+    if (search) newParams.search = search;
+    setSearchParams(newParams);
     setShowMobileFilters(false);
   };
 
